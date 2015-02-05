@@ -7,20 +7,6 @@ yeoman = require('yeoman-generator'),
 yosay = require('yosay'),
 _ = require('lodash-node');
 
-var viewPortRange = [{
-  mobile:{
-    min:0,
-    max:600
-  },
-  tablet:{
-    min:600,
-    max:1024
-  },
-  desktop:{
-    min:1024
-  },
-}];
-
 // Extend Base generator
 var FactoryComponentGenerator = yeoman.generators.Base.extend({
   info: function () {
@@ -59,6 +45,12 @@ var FactoryComponentGenerator = yeoman.generators.Base.extend({
           ,default: 2
         },
         {
+          type: 'confirm',
+          name: 'noMediaQuery',
+          message: 'Do you need more than one viewport?',
+          default: true
+        },
+        {
           type: 'checkbox',
           name: 'viewports',
           message: 'Which viewports would you like to build the css for?',
@@ -76,7 +68,26 @@ var FactoryComponentGenerator = yeoman.generators.Base.extend({
             name: 'Desktop',
             value: 'desktopCss',
             checked: true
-          }]
+          },
+         ]
+        },
+        {
+          when: function (props) {
+          return props.viewports.indexOf('tabletCss') !== -1;
+        },
+        name: 'mobileRange',
+        value: 'mobileRange',
+        message: chalk.green('mobileRangeMax???'),
+        default: '600'
+        },
+        {
+          when: function (props) {
+          return props.viewports.indexOf('tabletCss') !== -1;
+        },
+        name: 'tabletRange',
+        value: 'tabletRange',
+        message: chalk.green('tabletRange Max???'),
+        default: '1024'
         },
         {
           type: 'checkbox',
@@ -93,45 +104,57 @@ var FactoryComponentGenerator = yeoman.generators.Base.extend({
           }]
         },
         {
-          type: 'confirm',
-          name: 'noMediaQuery',
-          message: 'Do you need more than one viewport?',
-          default: true
+          when: function (props) {
+            console.log(props.folders.indexOf('contextsDir'));
+          return props.folders.indexOf('contextsDir') !== -1;
         },
+        name: 'contextName',
+        value: 'contextName',
+        message: chalk.green('What do you want to name your context folder?'),
+        default: 'mysite'
+       }
       ];
 
       this.prompt(prompts, function (props) {
         this.componentName = props.componentName;
         this.containerTag = props.containerTag;
+        this.contextName = props.contextName;
         this.folders = props.folders;
         this.noMediaQuery = props.noMediaQuery;
         this.viewports = props.viewports;
+        this.mobileRange = props.mobileRange;
+        this.tabletRange = props.tabletRange;
 
       done();
       }.bind(this));
   },
   confirmInfo: function () {
-      this.log(chalk.green(
-        'Component Name: ',this.componentName,
-        'Container Tag: ',this.containerTag,
-        'Media Query Needed: ', this.noMediaQuery,
-        'Viewports: ', this.viewports,
-        'Folders Needed: ', this.folders
+      this.log(chalk.yellow(
+        '\n---- DETAILS----\n',
+        '\nComponent Name:\t', this.componentName,
+        '\nContainer Tag:\t', this.containerTag,
+        '\nContext Name:\t', this.contextName,
+        '\nFolders Needed:\t', this.folders,
+        '\nMedia Query:\t', this.noMediaQuery,
+        '\nViewports:\t', this.viewports,
+        '\nMobile: ', this.mobileRange,
+        ', Tablet: ', this.tabletRange
       ));
     },
   createFolders: function () {
     this.componentDir = this.componentName;
-    this.contextsDir = this.contextName || 'vulture';
+    this.contextsDirName = this.contextName;
 
     // Make base component folder
     this.mkdir(this.componentDir);
     this.mkdir(this.componentDir + '/media');
     this.mkdir(this.componentDir + '/contexts');
-    this.mkdir(this.componentDir + '/contexts/' + this.contextsDir);
+    this.mkdir(this.componentDir + '/contexts/' + this.contextsDirName);
   },
   createFiles: function () {
     var data,
-    componentDir = this.componentDir;
+    componentDir = this.componentDir,
+    contextsDir = componentDir + '/contexts/' + this.contextsDirName;
 
     data = {
       componentName: this.componentName,
@@ -144,12 +167,14 @@ var FactoryComponentGenerator = yeoman.generators.Base.extend({
     this.template('_index.js', componentDir + '/index.js', data);
     this.template('_print.css', componentDir + '/print.css', data);
 
+    // Single CSS or CSS for Viewports
     if (this.noMediaQuery) {
-      this.template('_all.css', componentDir + '/contexts/' + this.contextsDir + '/all.css', data);
+      this.template('_all.css', contextsDir + '/' + '0-' + this.mobileRange + '.css', data);
+      this.template('_all.css', contextsDir + '/' + this.mobileRange + '-' + this.tabletRange + '.css', data);
+      this.template('_all.css', contextsDir + '/' + this.tabletRange + '+' + '.css', data);
     } else {
-      console.log('Viewports needed');
+      this.template('_all.css', contextsDir + '/all.css', data);
     }
-
   }
 
 });
