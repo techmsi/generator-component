@@ -77,7 +77,7 @@ var FactoryComponentGenerator = yeoman.generators.Base.extend({
         },
         name: 'mobileRange',
         value: 'mobileRange',
-        message: chalk.green('mobileRangeMax???'),
+        message: chalk.black('What is the maximum range for the Mobile Viewport?'),
         default: '600'
         },
         {
@@ -86,7 +86,7 @@ var FactoryComponentGenerator = yeoman.generators.Base.extend({
         },
         name: 'tabletRange',
         value: 'tabletRange',
-        message: chalk.green('tabletRange Max???'),
+        message: chalk.black('What is the maximum range for the Tablet Viewport?'),
         default: '1024'
         },
         {
