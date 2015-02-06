@@ -27,6 +27,7 @@ var FactoryComponentGenerator = yeoman.generators.Base.extend({
         this.folders = props.folders;
         this.noMediaQuery = props.noMediaQuery;
         this.viewports = props.viewports;
+        this.desktopOnlyDisplay = props.desktopOnlyDisplay;
         this.mobileRange = props.mobileRange;
         this.tabletRange = props.tabletRange;
         this.numOfContextFolders = props.numOfContextFolders;
@@ -44,6 +45,7 @@ var FactoryComponentGenerator = yeoman.generators.Base.extend({
         '\nFolders Needed:\t', this.folders,
         '\n# of Folders:\t', this.numOfContextFolders,
         '\nMedia Query:\t', this.noMediaQuery,
+        '\nDesktop Only:\t', this.desktopOnlyDisplay,
         '\nViewports:\t', this.viewports,
         '\nMobile: ', this.mobileRange,
         ', Tablet: ', this.tabletRange
@@ -68,6 +70,7 @@ var FactoryComponentGenerator = yeoman.generators.Base.extend({
 
     data = {
       componentName: this.componentName,
+      desktopOnlyDisplay: this.desktopOnlyDisplay,
       controllerName: _.capitalize(_.camelCase(this.componentName)),
       tag: this.containerTag
     };
@@ -81,7 +84,7 @@ var FactoryComponentGenerator = yeoman.generators.Base.extend({
     if (this.noMediaQuery) {
 
       if (this.numOfContextFolders > 1) {
-        for (folder in contextsDirs) {
+        for (var folder in contextsDirs) {
           var dir = contextsDir + contextsDirs[folder];
           createCss(this, dir, data);
         }
@@ -99,8 +102,10 @@ var FactoryComponentGenerator = yeoman.generators.Base.extend({
 
 // Creates Css files for the specified ranges
 function createCss(self, dir, data) {
-  self.template('_all.css', dir + '/' + '0-' + self.mobileRange + '.css', data);
-  self.template('_all.css', dir + '/' + self.mobileRange + '-' + self.tabletRange + '.css', data);
+  var newData = (data.desktopOnlyDisplay) ? _.omit(data, 'desktopOnlyDisplay') : data;
+
+  self.template('_all.css', dir + '/' + '0-' + self.mobileRange + '.css', newData);
+  self.template('_all.css', dir + '/' + self.mobileRange + '-' + self.tabletRange + '.css', newData);
   self.template('_all.css', dir + '/' + self.tabletRange + '+' + '.css', data);
 }
 

@@ -56,7 +56,17 @@ prompts = [{
   },
   {
     when: function (props) {
-    return props.viewports.indexOf('tabletCss') !== -1;
+    return props.viewports.indexOf('desktopCss') !== -1;
+  },
+    type: 'confirm',
+    name: 'desktopOnlyDisplay',
+    value: 'desktopOnlyDisplay',
+    message: chalk.black('Will this only be visible on Desktop?'),
+    default: true
+  },
+  {
+    when: function (props) {
+    return props.desktopOnlyDisplay;
   },
   name: 'mobileRange',
   value: 'mobileRange',
