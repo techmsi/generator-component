@@ -5,136 +5,44 @@ path = require('path'),
 chalk = require('chalk'),
 yeoman = require('yeoman-generator'),
 yosay = require('yosay'),
-_ = require('lodash-node');
+_ = require('lodash-node'),
+prompts = require('../prompts.js');
 
 // Extend Base generator
 var FactoryComponentGenerator = yeoman.generators.Base.extend({
   info: function () {
     this.log(chalk.yellow(
       'Out of the box I create a self-contained component,\n' +
-      'with html,css, & js placeholder files.\n'
+      'with html, css, & js placeholder files.\n'
     ));
   },
   promptUser: function () {
       var done = this.async();
 
-      var prompts = [{
-              name: 'componentName',
-              message: 'Enter your component\'s name: '
-          },
-        {
-          type: 'list',
-          name: 'containerTag',
-          message: 'Which tag would you like to use?(\n Choose a semantically appropriate tag)',
-          choices: [{
-            name: 'Nav',
-            value: 'nav'
-          },
-          {
-            name: 'Aside',
-            value: 'aside'
-          },
-          {
-            name: 'Section',
-            value: 'section'
-          },
-          {
-            name: 'Div',
-            value: 'div'
-          }]
-          ,default: 2
-        },
-        {
-          type: 'confirm',
-          name: 'noMediaQuery',
-          message: 'Do you need more than one viewport?',
-          default: true
-        },
-        {
-          type: 'checkbox',
-          name: 'viewports',
-          message: 'Which viewports would you like to build the css for?',
-          choices: [{
-            name: 'Mobile',
-            value: 'mobileCss',
-            checked: true
-          },
-          {
-            name: 'Tablet',
-            value: 'tabletCss',
-            checked: true
-          },
-          {
-            name: 'Desktop',
-            value: 'desktopCss',
-            checked: true
-          },
-         ]
-        },
-        {
-          when: function (props) {
-          return props.viewports.indexOf('tabletCss') !== -1;
-        },
-        name: 'mobileRange',
-        value: 'mobileRange',
-        message: chalk.black('What is the maximum range for the Mobile Viewport?'),
-        default: '600'
-        },
-        {
-          when: function (props) {
-          return props.viewports.indexOf('tabletCss') !== -1;
-        },
-        name: 'tabletRange',
-        value: 'tabletRange',
-        message: chalk.black('What is the maximum range for the Tablet Viewport?'),
-        default: '1024'
-        },
-        {
-          type: 'checkbox',
-          name: 'folders',
-          message: 'Which folders would you like to create?',
-          choices: [{
-            name: 'Media Folder',
-            value: 'mediaDir',
-            checked: true
-          },{
-            name: 'Contexts Folder',
-            value: 'contextsDir',
-            checked: true
-          }]
-        },
-        {
-          when: function (props) {
-            console.log(props.folders.indexOf('contextsDir'));
-          return props.folders.indexOf('contextsDir') !== -1;
-        },
-        name: 'contextName',
-        value: 'contextName',
-        message: chalk.green('What do you want to name your context folder?'),
-        default: 'mysite'
-       }
-      ];
-
       this.prompt(prompts, function (props) {
         this.componentName = props.componentName;
         this.containerTag = props.containerTag;
         this.contextName = props.contextName;
+        this.contextNames = (props.contextNames) ? props.contextNames.split(',') : null;
         this.folders = props.folders;
         this.noMediaQuery = props.noMediaQuery;
         this.viewports = props.viewports;
         this.mobileRange = props.mobileRange;
         this.tabletRange = props.tabletRange;
+        this.numOfContextFolders = props.numOfContextFolders;
 
       done();
       }.bind(this));
+
   },
   confirmInfo: function () {
       this.log(chalk.yellow(
         '\n---- DETAILS----\n',
         '\nComponent Name:\t', this.componentName,
         '\nContainer Tag:\t', this.containerTag,
-        '\nContext Name:\t', this.contextName,
+        '\nContext Name(s):\t', this.contextName || this.contextNames,
         '\nFolders Needed:\t', this.folders,
+        '\n# of Folders:\t', this.numOfContextFolders,
         '\nMedia Query:\t', this.noMediaQuery,
         '\nViewports:\t', this.viewports,
         '\nMobile: ', this.mobileRange,
@@ -154,7 +62,9 @@ var FactoryComponentGenerator = yeoman.generators.Base.extend({
   createFiles: function () {
     var data,
     componentDir = this.componentDir,
-    contextsDir = componentDir + '/contexts/' + this.contextsDirName;
+    contextsDir = componentDir + '/contexts/',
+    contextsDirs = this.contextNames,
+    singleFolderPath = contextsDir + this.contextName;
 
     data = {
       componentName: this.componentName,
@@ -169,14 +79,29 @@ var FactoryComponentGenerator = yeoman.generators.Base.extend({
 
     // Single CSS or CSS for Viewports
     if (this.noMediaQuery) {
-      this.template('_all.css', contextsDir + '/' + '0-' + this.mobileRange + '.css', data);
-      this.template('_all.css', contextsDir + '/' + this.mobileRange + '-' + this.tabletRange + '.css', data);
-      this.template('_all.css', contextsDir + '/' + this.tabletRange + '+' + '.css', data);
+
+      if (this.numOfContextFolders > 1) {
+        for (folder in contextsDirs) {
+          var dir = contextsDir + contextsDirs[folder];
+          createCss(this, dir, data);
+        }
+      } else {
+        createCss(this, singleFolderPath, data);
+      }
+
     } else {
-      this.template('_all.css', contextsDir + '/all.css', data);
+      // No media queries required
+      this.template('_all.css', singleFolderPath + '/all.css', data);
     }
   }
 
 });
+
+// Creates Css files for the specified ranges
+function createCss(self, dir, data) {
+  self.template('_all.css', dir + '/' + '0-' + self.mobileRange + '.css', data);
+  self.template('_all.css', dir + '/' + self.mobileRange + '-' + self.tabletRange + '.css', data);
+  self.template('_all.css', dir + '/' + self.tabletRange + '+' + '.css', data);
+}
 
 module.exports = FactoryComponentGenerator;
