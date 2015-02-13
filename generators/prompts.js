@@ -1,10 +1,7 @@
 'use strict';
 
 var chalk = require('chalk'),
-prompts = [{
-        name: 'componentName',
-        message: 'Enter your component\'s name: '
-    },
+prompts = [
   {
     type: 'list',
     name: 'containerTag',
@@ -29,7 +26,7 @@ prompts = [{
   },
   {
     type: 'confirm',
-    name: 'noMediaQuery',
+    name: 'mediaQuery',
     message: 'Do you need more than one viewport?',
     default: true
   },
