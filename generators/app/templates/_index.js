@@ -1,4 +1,4 @@
-Factory.controller('<%= componentName %>', ['$', function($) {
+DS.controller('<%= componentName %>', ['$', function($) {
   'use strict';
 
   //shared variables

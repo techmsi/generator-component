@@ -1,4 +1,4 @@
-# generator-factory-component [![Build Status](https://secure.travis-ci.org/techmsi/generator-factory-component.png?branch=master)](https://travis-ci.org/techmsi/generator-factory-component)
+# generator-component [![Build Status](https://secure.travis-ci.org/techmsi/generator-component.png?branch=master)](https://travis-ci.org/techmsi/generator-component)
 
 > [Yeoman](http://yeoman.io) generator
 
@@ -13,16 +13,16 @@ npm install -g yo
 
 ### Yeoman Generators
 
-To install generator-factory-component from npm, run:
+To install generator-component from npm, run:
 
 ```bash
-npm install -g generator-factory-component
+npm install -g generator-component
 ```
 
 Finally, initiate the generator:
 
 ```bash
-yo factory-component component-name
+yo component component-name
 ```
 
 ## Questions

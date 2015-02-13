@@ -1,10 +1,10 @@
 {
-  "name": "generator-factory-component",
+  "name": "generator-component",
   "version": "0.0.0",
-  "description": "Yeoman generator for a factory component",
+  "description": "Yeoman generator for a self-contained component",
   "license": "MIT",
   "main": "app/index.js",
-  "repository": "techmsi/generator-factory-component",
+  "repository": "techmsi/generator-component",
   "author": {
     "name": "Sophie Idromenos",
     "email": "",
