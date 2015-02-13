@@ -1,15 +1,20 @@
 'use strict';
 
 var util = require('util'),
-path = require('path'),
-chalk = require('chalk'),
-yeoman = require('yeoman-generator'),
-yosay = require('yosay'),
-_ = require('lodash-node'),
-prompts = require('../prompts.js');
+  path = require('path'),
+  chalk = require('chalk'),
+  yeoman = require('yeoman-generator'),
+  yosay = require('yosay'),
+  _ = require('lodash-node'),
+  prompts = require('../prompts.js');
 
 // Extend Base generator
 var FactoryComponentGenerator = yeoman.generators.Base.extend({
+  constructor: function () {
+    yeoman.generators.Base.apply(this, arguments);
+    this.argument('componentName', { type: String, required: true });
+    this.componentName = this.componentName;
+  },
   info: function () {
     this.log(chalk.yellow(
       'Out of the box I create a self-contained component,\n' +
@@ -17,61 +22,57 @@ var FactoryComponentGenerator = yeoman.generators.Base.extend({
     ));
   },
   promptUser: function () {
-      var done = this.async();
 
-      this.prompt(prompts, function (props) {
-        this.componentName = props.componentName;
-        this.containerTag = props.containerTag;
-        this.contextName = props.contextName;
-        this.contextNames = (props.contextNames) ? props.contextNames.split(',') : null;
-        this.folders = props.folders;
-        this.noMediaQuery = props.noMediaQuery;
-        this.viewports = props.viewports;
-        this.desktopOnlyDisplay = props.desktopOnlyDisplay;
-        this.mobileRange = props.mobileRange;
-        this.tabletRange = props.tabletRange;
-        this.numOfContextFolders = props.numOfContextFolders;
+    var done = this.async();
+    // Retrieved from command line arguments
+    this.componentDir = this.componentName;
+
+    this.prompt(prompts, function (props) {
+      this.props = props;
+      this.hasContexts = _.includes(props.folders, 'contextsDir');
 
       done();
-      }.bind(this));
+    }.bind(this));
 
   },
   confirmInfo: function () {
-      this.log(chalk.yellow(
-        '\n---- DETAILS----\n',
-        '\nComponent Name:\t', this.componentName,
-        '\nContainer Tag:\t', this.containerTag,
-        '\nContext Name(s):\t', this.contextName || this.contextNames,
-        '\nFolders Needed:\t', this.folders,
-        '\n# of Folders:\t', this.numOfContextFolders,
-        '\nMedia Query:\t', this.noMediaQuery,
-        '\nDesktop Only:\t', this.desktopOnlyDisplay,
-        '\nViewports:\t', this.viewports,
-        '\nMobile: ', this.mobileRange,
-        ', Tablet: ', this.tabletRange
-      ));
-    },
+    var msg = '';
+
+    for (var key in this.props) {
+      msg += '\n' + _.startCase(key) + ':\t' + this.props[key];
+    }
+
+    this.log(chalk.yellow(
+      '\n---- DETAILS----',
+      '\nComponent Name:\t', this.componentDir,
+      msg, '\n'
+    ));
+
+  },
   createFolders: function () {
-    this.componentDir = this.componentName;
-    this.contextsDirName = this.contextName;
 
     // Make base component folder
     this.mkdir(this.componentDir);
-    this.mkdir(this.componentDir + '/media');
-    this.mkdir(this.componentDir + '/contexts');
-    this.mkdir(this.componentDir + '/contexts/' + this.contextsDirName);
+
+    if (_.includes(this.props.folders, 'mediaDir')) {
+      this.mkdir(this.componentDir + '/media');
+    }
+
+    if (this.hasContexts) {
+      this.mkdir(this.componentDir + '/contexts');
+    }
   },
   createFiles: function () {
     var data,
-    componentDir = this.componentDir,
-    contextsDir = componentDir + '/contexts/',
-    contextsDirs = this.contextNames,
-    singleFolderPath = contextsDir + this.contextName;
+        contextsDirs,
+        componentDir = this.componentDir,
+        contextsDir = componentDir + '/contexts/',
+        singleFolderPath = contextsDir + this.props.contextName;
 
     data = {
-      componentName: this.componentName,
-      desktopOnlyDisplay: this.desktopOnlyDisplay,
-      controllerName: _.capitalize(_.camelCase(this.componentName)),
+      componentName: this.componentDir,
+      desktopOnlyDisplay: this.props.desktopOnlyDisplay,
+      controllerName: _.capitalize(_.camelCase(this.componentDir)),
       tag: this.containerTag
     };
 
@@ -79,22 +80,22 @@ var FactoryComponentGenerator = yeoman.generators.Base.extend({
     this.template('_index.html', componentDir + '/index.html', data);
     this.template('_index.js', componentDir + '/index.js', data);
     this.template('_print.css', componentDir + '/print.css', data);
+    this.log(chalk.blue('Basic Files Created.'));
 
-    // Single CSS or CSS for Viewports
-    if (this.noMediaQuery) {
+    if (this.props.numOfContextFolders > 1) {
+      contextsDirs = this.props.contextNames.split(',');
 
-      if (this.numOfContextFolders > 1) {
-        for (var folder in contextsDirs) {
-          var dir = contextsDir + contextsDirs[folder];
-          createCss(this, dir, data);
-        }
-      } else {
-        createCss(this, singleFolderPath, data);
+      for (var folder in contextsDirs) {
+        var dir = contextsDir + contextsDirs[folder];
+        createCss(this, dir, data);
       }
-
+      this.log('Created Contexts:\t', chalk.underline.blue(contextsDirs));
+    } else if (this.props.numOfContextFolders == 1) {
+      createCss(this, singleFolderPath, data);
+      this.log(chalk.blue('Context Needed.'));
     } else {
-      // No media queries required
-      this.template('_all.css', singleFolderPath + '/all.css', data);
+      createCss(this, componentDir, data);
+      this.log(chalk.blue('No Context Needed.'));
     }
   }
 
@@ -104,9 +105,15 @@ var FactoryComponentGenerator = yeoman.generators.Base.extend({
 function createCss(self, dir, data) {
   var newData = (data.desktopOnlyDisplay) ? _.omit(data, 'desktopOnlyDisplay') : data;
 
-  self.template('_all.css', dir + '/' + '0-' + self.mobileRange + '.css', newData);
-  self.template('_all.css', dir + '/' + self.mobileRange + '-' + self.tabletRange + '.css', newData);
-  self.template('_all.css', dir + '/' + self.tabletRange + '+' + '.css', data);
+  if (self.props.mediaQuery) {
+    self.template('_all.css', dir + '/' + '0-' + self.props.mobileRange + '.css', newData);
+    self.template('_all.css', dir + '/' + self.props.mobileRange + '-' + self.props.tabletRange + '.css', newData);
+    self.template('_all.css', dir + '/' + self.props.tabletRange + '+' + '.css', data);
+  } else {
+    // No media queries required
+    self.template('_all.css', self.componentDir + '/all.css', data);
+  }
+
 }
 
 module.exports = FactoryComponentGenerator;
