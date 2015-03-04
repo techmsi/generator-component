@@ -67,3 +67,46 @@ describe('component:app - case 1', function () {
     assert.file(filesDefaults);
   });
 });
+
+
+describe('component:app - case 2', function () {
+  before(function (done) {
+    helpers.run(path.join(__dirname, generatorPath))
+      .inDir(path.join(os.tmpdir(), outputDir))
+      .withArguments([componentName])              // Mock the arguments
+      .withPrompt(promptsNoMediaQueries)
+      .on('end', done);
+  });
+
+  it('create files - (One viewport Only)', function () {
+    assert.file(filesNoMediaQueries);
+  });
+});
+
+describe('component:app - case 3', function () {
+  before(function (done) {
+    helpers.run(path.join(__dirname, generatorPath))
+      .inDir(path.join(os.tmpdir(), outputDir))
+      .withArguments([componentName])              // Mock the arguments
+      .withPrompt(prompts2Contexts)
+      .on('end', done);
+  });
+
+  it('create files - (2 Contexts)', function () {
+    assert.file(files2Contexts);
+  });
+});
+
+describe('component:app - case 4', function () {
+  before(function (done) {
+    helpers.run(path.join(__dirname, generatorPath))
+      .inDir(path.join(os.tmpdir(), outputDir))
+      .withArguments([componentName])              // Mock the arguments
+      .withPrompt(promptsNoContexts)
+      .on('end', done);
+  });
+
+  it('create files - (No Contexts)', function () {
+    assert.file(filesNoContexts);
+  });
+});
