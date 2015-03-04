@@ -1,0 +1,10 @@
+{
+  "containerTag": "section",
+  "folders": [
+    "mediaDir",
+    "contextsDir"
+  ],
+  "numOfContextFolders": "1",
+  "contextName": "mysite",
+  "mediaQuery": false
+}

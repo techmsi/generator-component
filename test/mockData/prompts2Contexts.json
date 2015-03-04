@@ -1,0 +1,18 @@
+{
+  "containerTag": "section",
+  "folders": [
+    "mediaDir",
+    "contextsDir"
+  ],
+  "numOfContextFolders": "2",
+  "contextNames": "mysite,myothersite",
+  "mediaQuery": true,
+  "viewports": [
+    "mobileCss",
+    "tabletCss",
+    "desktopCss"
+  ],
+  "desktopOnlyDisplay": true,
+  "mobileRange": "600",
+  "tabletRange": "1024"
+}
