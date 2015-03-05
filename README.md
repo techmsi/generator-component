@@ -22,6 +22,8 @@
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
  generator-component [![Build Status](https://secure.travis-ci.org/techmsi/generator-component.png?branch=master)](https://travis-ci.org/techmsi/generator-component)
+[![Code Climate](https://codeclimate.com/github/techmsi/generator-component/badges/gpa.svg)](https://codeclimate.com/github/techmsi/generator-component)
+[![Test Coverage](https://codeclimate.com/github/techmsi/generator-component/badges/coverage.svg)](https://codeclimate.com/github/techmsi/generator-component)
 
 ## Getting Started
 
