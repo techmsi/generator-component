@@ -139,9 +139,23 @@ _( Answer: No )_
 * Tests included in module to check for various cases.
 
 ### Running Tests
+
 ```bash
 npm test
 ```
+
+```bash
+npm test --coverage
+```
+
+```bash
+open coverage/lcov-report/index.html
+```
+
+## Contributing
+
+Contributions are welcome. Please file issues with any problems that you experience. Pull requests are welcome.
+
 ## License
 
 [MIT](LICENSE)
