@@ -11,12 +11,13 @@
     - [Additional Questions](#additional-questions)
       - [One Context](#one-context)
       - [More than one context](#more-than-one-context)
-    - [No Context](#no-context)
-  - [Do you need more than one viewport?](#do-you-need-more-than-one-viewport)
+      - [No Context](#no-context)
+  - [Viewports](#viewports)
     - [Additional Questions](#additional-questions-1)
-    - [No Additional Questions](#no-additional-questions)
-- [Unit Tests](#unit-tests)
+    - [Single Viewport](#single-viewport)
+- [Tests](#tests)
   - [Running Tests](#running-tests)
+- [Contributing](#contributing)
 - [License](#license)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
@@ -71,9 +72,9 @@ default: `Media Folder, Contexts Folder`
 ❯&nbsp;&#9673; Media Folder <br/>
 &nbsp;&#9673; Contexts Folder
 
-_( Choice: Contexts Folder )_
-
 #### Additional Questions
+_( Answer Choice: Contexts Folder )_
+
 * Enter the number of context folders you need
 default: `1`
 
@@ -105,7 +106,7 @@ default: `mysite,myothersite`
 
 _These **context names** are either defaults or what is entered when prompted._
 
-#### No Context
+##### No Context
 
 **Generated Files**
 
@@ -113,10 +114,12 @@ _These **context names** are either defaults or what is entered when prompted._
 * component-name/600-1024.css
 * component-name/1024+.css
 
+### Viewports
+* Do you need more than one viewport?
 
-### Do you need more than one viewport?
 #### Additional Questions
 _( Answer: Yes )_
+
   - Which viewports would you like to build the css for?
   - Will this only be visible on Desktop?
   - What is the maximum range for the Mobile Viewport? (600)
@@ -130,15 +133,25 @@ _( Answer: Yes )_
 
 _These **ranges** are either defaults or what is entered when prompted._
 
-#### No Additional Questions
+#### Single Viewport
 _( Answer: No )_
 
 **Generated Files**
 
 * component-name/all.css
 
-## Unit Tests
+## Tests
 * Tests included in module to check for various cases.
+
+
+* 0 Contexts, Multiple Viewports
+* 1 Context, Multiple Viewports - default
+* 2 Contexts, Multiple Viewports
+
+
+* 0 Contexts, 1 Viewport
+* 1 Context, 1 Viewport
+* 2 Contexts, 1 Viewport
 
 ### Running Tests
 
