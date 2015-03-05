@@ -5,6 +5,8 @@ var path = require('path'),
  assert = require('yeoman-generator').assert,
  helpers = require('yeoman-generator').test,
  os = require('os'),
+ _ = require('lodash-node'),
+ caseNum = 0,
  generatorPath = '../generators/app',
  outputDir = './temp-test',
  contextsDir = 'contexts',
@@ -12,6 +14,7 @@ var path = require('path'),
  promptsDefault = require(path.resolve('test/mockData', 'promptsDefault.json')),
  promptsNoMediaQueries = require(path.resolve('test/mockData', 'promptsNoMediaQueries.json')),
  prompts2Contexts = require(path.resolve('test/mockData', 'prompts2Contexts.json')),
+ promptsNoContexts1Viewport = require(path.resolve('test/mockData', 'promptsNoContexts1Viewport.json')),
  promptsNoContexts = require(path.resolve('test/mockData', 'promptsNoContexts.json'));
 
 var filesDefaults = [
@@ -51,25 +54,49 @@ var filesNoMediaQueries = [
   componentName + '/' + 'all.css'
 ];
 
-describe('component:app - case 1', function () {
+var filesNoContexts1Viewport = [
+  componentName + '/' + 'index.html',
+  componentName + '/' + 'index.js',
+  componentName + '/' + 'print.css',
+  componentName + '/' + 'all.css'
+];
+
+function printPromptDetails (props) {
+  var msg = '';
+
+  for (var key in props) {
+    msg += '\n' + _.startCase(key) + ':\t' + props[key];
+  }
+
+  console.log(
+    chalk.yellow(
+    '\n---- DETAILS ----',
+    msg, '\n'
+  ));
+};
+
+describe('component:app - case ' + caseNum++, function () {
+  console.log('\nTesting ' + chalk.yellow(componentName) + ' component...');
+
   before(function (done) {
     helpers.run(path.join(__dirname, generatorPath))
       .inDir(path.join(os.tmpdir(), outputDir))
       .withArguments([componentName])              // Mock the arguments
       .withPrompt(promptsDefault)
-      .on('ready', function (generator) {
-        console.log('\nTesting ' + chalk.yellow(componentName) + ' component...');
-      })
       .on('end', done);
   });
 
-  it('create files - (default)', function () {
+  it('create files - (default - 1 Context, Multiple Viewports)', function () {
     assert.file(filesDefaults);
+  });
+
+  after(function () {
+    printPromptDetails(promptsDefault);
+    console.log(filesDefaults);
   });
 });
 
-
-describe('component:app - case 2', function () {
+describe('component:app - case ' + caseNum++, function () {
   before(function (done) {
     helpers.run(path.join(__dirname, generatorPath))
       .inDir(path.join(os.tmpdir(), outputDir))
@@ -78,12 +105,17 @@ describe('component:app - case 2', function () {
       .on('end', done);
   });
 
-  it('create files - (One viewport Only)', function () {
+  it('create files - (1 Context, 1 Viewport)', function () {
     assert.file(filesNoMediaQueries);
+  });
+
+  after(function() {
+    printPromptDetails(promptsNoMediaQueries);
+    console.log(filesNoMediaQueries);
   });
 });
 
-describe('component:app - case 3', function () {
+describe('component:app - case ' + caseNum++, function () {
   before(function (done) {
     helpers.run(path.join(__dirname, generatorPath))
       .inDir(path.join(os.tmpdir(), outputDir))
@@ -92,12 +124,18 @@ describe('component:app - case 3', function () {
       .on('end', done);
   });
 
-  it('create files - (2 Contexts)', function () {
+  it('create files - (2 Contexts, Multiple Viewports)', function () {
     assert.file(files2Contexts);
+  });
+
+
+  after(function () {
+    printPromptDetails(prompts2Contexts);
+    console.log(files2Contexts);
   });
 });
 
-describe('component:app - case 4', function () {
+describe('component:app - case ' + caseNum++, function () {
   before(function (done) {
     helpers.run(path.join(__dirname, generatorPath))
       .inDir(path.join(os.tmpdir(), outputDir))
@@ -106,7 +144,31 @@ describe('component:app - case 4', function () {
       .on('end', done);
   });
 
-  it('create files - (No Contexts)', function () {
+  it('create files - (No Contexts, Multiple Viewports)', function () {
     assert.file(filesNoContexts);
+  });
+
+  after(function() {
+    printPromptDetails(promptsNoContexts);
+    console.log(filesNoContexts);
+  });
+});
+
+describe('component:app - case ' + caseNum++, function () {
+  before(function (done) {
+    helpers.run(path.join(__dirname, generatorPath))
+      .inDir(path.join(os.tmpdir(), outputDir))
+      .withArguments([componentName])              // Mock the arguments
+      .withPrompt(promptsNoContexts1Viewport)
+      .on('end', done);
+  });
+
+  it('create files - (No Contexts, 1 Viewport)', function () {
+    assert.file(filesNoContexts1Viewport);
+  });
+
+  after(function(){
+    printPromptDetails(promptsNoContexts1Viewport);
+    console.log(filesNoContexts1Viewport);
   });
 });
