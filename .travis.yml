@@ -4,3 +4,5 @@ node_js:
 before_install:
   - currentfolder=${PWD##*/}
   - if [ "$currentfolder" != 'generator-component' ]; then cd .. && eval "mv $currentfolder generator-component" && cd generator-component; fi
+notifications:
+  email: false
