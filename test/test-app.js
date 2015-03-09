@@ -11,9 +11,9 @@ var path = require('path'),
  outputDir = './temp-test',
  contextsDir = 'contexts',
  componentName = 'my-test-component',
+ prompts0ContextsMultipleViewports = require(path.resolve('test/mockData', 'prompts0ContextsMultipleViewports.json')),
  prompts1ContextMultipleViewports = require(path.resolve('test/mockData', 'prompts1ContextMultipleViewports.json')),
  prompts2ContextsMultipleViewports = require(path.resolve('test/mockData', 'prompts2ContextsMultipleViewports.json')),
- prompts0ContextsMultipleViewports = require(path.resolve('test/mockData', 'prompts0ContextsMultipleViewports.json')),
  prompts0Contexts1Viewport = require(path.resolve('test/mockData', 'prompts0Contexts1Viewport.json')),
  prompts1Context1Viewport = require(path.resolve('test/mockData', 'prompts1Context1Viewport.json')),
  prompts2Contexts1Viewport = require(path.resolve('test/mockData', 'prompts2Contexts1Viewport.json'));
@@ -24,6 +24,12 @@ var filesDefaults = [
    componentName + '/' + 'index.js',
    componentName + '/' + 'print.css'
  ];
+
+var files0ContextsMultipleViewports = [
+  componentName + '/' + '0-600.css',
+  componentName + '/' + '600-1024.css',
+  componentName + '/' + '1024+.css'
+];
 
 // Default prompt options
 var files1ContextMultipleViewports = [
@@ -39,13 +45,6 @@ var files2ContextsMultipleViewports = [
   componentName + '/' + contextsDir + '/' + 'myothersite/0-600.css',
   componentName + '/' + contextsDir + '/' + 'myothersite/600-1024.css',
   componentName + '/' + contextsDir + '/' + 'myothersite/1024+.css'
-];
-
-
-var files0ContextsMultipleViewports = [
-  componentName + '/' + '0-600.css',
-  componentName + '/' + '600-1024.css',
-  componentName + '/' + '1024+.css'
 ];
 
 var files0Contexts1Viewport = [
