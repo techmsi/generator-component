@@ -6,31 +6,33 @@ var path = require('path'),
  helpers = require('yeoman-generator').test,
  os = require('os'),
  _ = require('lodash-node'),
- caseNum = 0,
+ caseNum = 1,
  generatorPath = '../generators/app',
  outputDir = './temp-test',
  contextsDir = 'contexts',
  componentName = 'my-test-component',
- promptsDefault = require(path.resolve('test/mockData', 'promptsDefault.json')),
+ prompts1ContextMultipleViewports = require(path.resolve('test/mockData', 'prompts1ContextMultipleViewports.json')),
+ prompts2ContextsMultipleViewports = require(path.resolve('test/mockData', 'prompts2ContextsMultipleViewports.json')),
+ prompts0ContextsMultipleViewports = require(path.resolve('test/mockData', 'prompts0ContextsMultipleViewports.json')),
+ prompts0Contexts1Viewport = require(path.resolve('test/mockData', 'prompts0Contexts1Viewport.json')),
  prompts1Context1Viewport = require(path.resolve('test/mockData', 'prompts1Context1Viewport.json')),
- prompts2Contexts = require(path.resolve('test/mockData', 'prompts2Contexts.json')),
- promptsNoContexts1Viewport = require(path.resolve('test/mockData', 'promptsNoContexts1Viewport.json')),
- prompts2Contexts1Viewport = require(path.resolve('test/mockData', 'prompts2Contexts1Viewport.json')),
- promptsNoContexts = require(path.resolve('test/mockData', 'promptsNoContexts.json'));
+ prompts2Contexts1Viewport = require(path.resolve('test/mockData', 'prompts2Contexts1Viewport.json'));
 
 var filesDefaults = [
-  componentName + '/' + 'index.html',
-  componentName + '/' + 'index.js',
-  componentName + '/' + 'print.css',
+   componentName + '/' + 'media/',
+   componentName + '/' + 'index.html',
+   componentName + '/' + 'index.js',
+   componentName + '/' + 'print.css'
+ ];
+
+// Default prompt options
+var files1ContextMultipleViewports = [
   componentName + '/' + contextsDir + '/' + 'mysite/0-600.css',
   componentName + '/' + contextsDir + '/' + 'mysite/600-1024.css',
   componentName + '/' + contextsDir + '/' + 'mysite/1024+.css'
 ];
 
-var files2Contexts = [
-  componentName + '/' + 'index.html',
-  componentName + '/' + 'index.js',
-  componentName + '/' + 'print.css',
+var files2ContextsMultipleViewports = [
   componentName + '/' + contextsDir + '/' + 'mysite/0-600.css',
   componentName + '/' + contextsDir + '/' + 'mysite/600-1024.css',
   componentName + '/' + contextsDir + '/' + 'mysite/1024+.css',
@@ -39,36 +41,26 @@ var files2Contexts = [
   componentName + '/' + contextsDir + '/' + 'myothersite/1024+.css'
 ];
 
-var files2Contexts1Viewport = [
-  componentName + '/' + 'index.html',
-  componentName + '/' + 'index.js',
-  componentName + '/' + 'print.css',
-  componentName + '/' + contextsDir + '/' + 'mysite/all.css',
-  componentName + '/' + contextsDir + '/' + 'myothersite/all.css'
-];
 
-var filesNoContexts = [
-  componentName + '/' + 'index.html',
-  componentName + '/' + 'index.js',
-  componentName + '/' + 'print.css',
+var files0ContextsMultipleViewports = [
   componentName + '/' + '0-600.css',
   componentName + '/' + '600-1024.css',
   componentName + '/' + '1024+.css'
 ];
 
+var files0Contexts1Viewport = [
+  componentName + '/' + 'all.css'
+];
+
 var files1Context1Viewport = [
-  componentName + '/' + 'index.html',
-  componentName + '/' + 'index.js',
-  componentName + '/' + 'print.css',
   componentName + '/' + contextsDir + '/' + 'mysite/all.css'
 ];
 
-var filesNoContexts1Viewport = [
-  componentName + '/' + 'index.html',
-  componentName + '/' + 'index.js',
-  componentName + '/' + 'print.css',
-  componentName + '/' + 'all.css'
+var files2Contexts1Viewport = [
+  componentName + '/' + contextsDir + '/' + 'mysite/all.css',
+  componentName + '/' + contextsDir + '/' + 'myothersite/all.css'
 ];
+
 
 function printPromptDetails (props) {
   var msg = '';
@@ -90,17 +82,18 @@ describe('component:app - case ' + caseNum++, function () {
     helpers.run(path.join(__dirname, generatorPath))
       .inDir(path.join(os.tmpdir(), outputDir))
       .withArguments([componentName])              // Mock the arguments
-      .withPrompt(promptsNoContexts)
+      .withPrompt(prompts0ContextsMultipleViewports)
       .on('end', done);
   });
 
   it('create files - (0 Contexts, Multiple Viewports)', function () {
-    assert.file(filesNoContexts);
+    assert.file(filesDefaults);
+    assert.file(files0ContextsMultipleViewports);
   });
 
   after(function() {
-    printPromptDetails(promptsNoContexts);
-    console.log(filesNoContexts);
+    printPromptDetails(prompts0ContextsMultipleViewports);
+    console.log(files0ContextsMultipleViewports);
   });
 });
 
@@ -112,17 +105,19 @@ describe('component:app - case ' + caseNum++, function () {
     helpers.run(path.join(__dirname, generatorPath))
       .inDir(path.join(os.tmpdir(), outputDir))
       .withArguments([componentName])              // Mock the arguments
-      .withPrompt(promptsDefault)
+      .withPrompt(prompts1ContextMultipleViewports)
       .on('end', done);
   });
 
   it('create files - (1 Context, Multiple Viewports - default)', function () {
     assert.file(filesDefaults);
+
+    assert.file(files1ContextMultipleViewports);
   });
 
   after(function () {
-    printPromptDetails(promptsDefault);
-    console.log(filesDefaults);
+    printPromptDetails(prompts1ContextMultipleViewports);
+    console.log(files1ContextMultipleViewports);
   });
 });
 
@@ -132,18 +127,19 @@ describe('component:app - case ' + caseNum++, function () {
     helpers.run(path.join(__dirname, generatorPath))
       .inDir(path.join(os.tmpdir(), outputDir))
       .withArguments([componentName])              // Mock the arguments
-      .withPrompt(prompts2Contexts)
+      .withPrompt(prompts2ContextsMultipleViewports)
       .on('end', done);
   });
 
   it('create files - (2 Contexts, Multiple Viewports)', function () {
-    assert.file(files2Contexts);
+    assert.file(filesDefaults);
+    assert.file(files2ContextsMultipleViewports);
   });
 
 
   after(function () {
-    printPromptDetails(prompts2Contexts);
-    console.log(files2Contexts);
+    printPromptDetails(prompts2ContextsMultipleViewports);
+    console.log(files2ContextsMultipleViewports);
   });
 });
 
@@ -153,17 +149,18 @@ describe('component:app - case ' + caseNum++, function () {
     helpers.run(path.join(__dirname, generatorPath))
       .inDir(path.join(os.tmpdir(), outputDir))
       .withArguments([componentName])              // Mock the arguments
-      .withPrompt(promptsNoContexts1Viewport)
+      .withPrompt(prompts0Contexts1Viewport)
       .on('end', done);
   });
 
   it('create files - (0 Contexts, 1 Viewport)', function () {
-    assert.file(filesNoContexts1Viewport);
+    assert.file(filesDefaults);
+    assert.file(files0Contexts1Viewport);
   });
 
   after(function(){
-    printPromptDetails(promptsNoContexts1Viewport);
-    console.log(filesNoContexts1Viewport);
+    printPromptDetails(prompts0Contexts1Viewport);
+    console.log(files0Contexts1Viewport);
   });
 });
 
@@ -178,6 +175,7 @@ describe('component:app - case ' + caseNum++, function () {
   });
 
   it('create files - (1 Context, 1 Viewport)', function () {
+    assert.file(filesDefaults);
     assert.file(files1Context1Viewport);
   });
 
@@ -199,6 +197,7 @@ describe('component:app - case ' + caseNum++, function () {
 
   it('create files - (2 Contexts, 1 Viewport)', function () {
     // TODO: Fix failure
+    assert.file(filesDefaults);
     // assert.file(files2Contexts1Viewport);
   });
 
