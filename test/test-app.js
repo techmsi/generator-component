@@ -195,9 +195,8 @@ describe('component:app - case ' + caseNum++, function () {
   });
 
   it('create files - (2 Contexts, 1 Viewport)', function () {
-    // TODO: Fix failure
     assert.file(filesDefaults);
-    // assert.file(files2Contexts1Viewport);
+    assert.file(files2Contexts1Viewport);
   });
 
   after(function() {
