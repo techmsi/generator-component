@@ -109,6 +109,9 @@ function createCss(self, dir, data) {
     self.template('_all.css', dir + '/' + '0-' + self.props.mobileRange + '.css', newData);
     self.template('_all.css', dir + '/' + self.props.mobileRange + '-' + self.props.tabletRange + '.css', newData);
     self.template('_all.css', dir + '/' + self.props.tabletRange + '+' + '.css', data);
+  } else if (dir !== 'undefined') {
+    // No media queries required but context required
+    self.template('_all.css', dir + '/all.css', data);
   } else {
     // No media queries required
     self.template('_all.css', self.componentDir + '/all.css', data);
