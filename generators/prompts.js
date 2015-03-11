@@ -80,8 +80,8 @@ prompts = [
   },
   {
     type:'checkbox',
-    name:'viewports',
-    message:'Which viewports would you like to build the css for?',
+    name:'breakpoints',
+    message:'Which breakpoints would you like to build the css for?',
     when:hasFeature('mediaQuery'),
     choices:[
       {
@@ -112,18 +112,18 @@ prompts = [
   {
     name:'mobileRange',
     value:'mobileRange',
-    message:chalk.black('What is the maximum range for the Mobile Viewport?'),
+    message:chalk.black('What is the maximum range for the Mobile Breakpoint?'),
     when:function (answers) {
-      return hasFeatureChoice(answers.viewports, 'mobileCss');
+      return hasFeatureChoice(answers.breakpoints, 'mobileCss');
     },
     default:'600'
   },
   {
     name:'tabletRange',
     value:'tabletRange',
-    message:chalk.black('What is the maximum range for the Tablet Viewport?'),
+    message:chalk.black('What is the maximum range for the Tablet Breakpoint?'),
     when:function (answers) {
-      return hasFeatureChoice(answers.viewports, 'tabletCss');
+      return hasFeatureChoice(answers.breakpoints, 'tabletCss');
     },
     default:'1024'
   }

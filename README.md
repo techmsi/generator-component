@@ -12,9 +12,9 @@
       - [One Context](#one-context)
       - [More than one context](#more-than-one-context)
       - [No Context](#no-context)
-  - [Viewports](#viewports)
+  - [Breakpoints](#breakpoints)
     - [Additional Questions](#additional-questions-1)
-    - [Single Viewport](#single-viewport)
+    - [Single Breakpoint](#single-viewport)
 - [Tests](#tests)
   - [Running Tests](#running-tests)
 - [Contributing](#contributing)
@@ -114,16 +114,16 @@ _These **context names** are either defaults or what is entered when prompted._
 * component-name/600-1024.css
 * component-name/1024+.css
 
-### Viewports
+### Breakpoints
 * Do you need more than one viewport?
 
 #### Additional Questions
 _( Answer: Yes )_
 
-  - Which viewports would you like to build the css for?
+  - Which breakpoints would you like to build the css for?
   - Will this only be visible on Desktop?
-  - What is the maximum range for the Mobile Viewport? (600)
-  - What is the maximum range for the Tablet Viewport? (1024)
+  - What is the maximum range for the Mobile Breakpoint? (600)
+  - What is the maximum range for the Tablet Breakpoint? (1024)
 
 **Generated Files**
 
@@ -133,7 +133,7 @@ _( Answer: Yes )_
 
 _These **ranges** are either defaults or what is entered when prompted._
 
-#### Single Viewport
+#### Single Breakpoint
 _( Answer: No )_
 
 **Generated Files**
@@ -144,14 +144,14 @@ _( Answer: No )_
 * Tests included in module to check for various cases.
 
 
-* 0 Contexts, Multiple Viewports
-* 1 Context, Multiple Viewports - default
-* 2 Contexts, Multiple Viewports
+* 0 Contexts, Multiple Breakpoints
+* 1 Context, Multiple Breakpoints - default
+* 2 Contexts, Multiple Breakpoints
 
 
-* 0 Contexts, 1 Viewport
-* 1 Context, 1 Viewport
-* 2 Contexts, 1 Viewport
+* 0 Contexts, 1 Breakpoint
+* 1 Context, 1 Breakpoint
+* 2 Contexts, 1 Breakpoint
 
 ### Running Tests
 

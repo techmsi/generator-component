@@ -7,7 +7,7 @@
   "numOfContextFolders": "1",
   "contextName": "mysite",
   "mediaQuery": true,
-  "viewports": [
+  "breakpoints": [
     "mobileCss",
     "tabletCss",
     "desktopCss"

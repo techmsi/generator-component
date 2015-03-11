@@ -1,10 +1,13 @@
 {
   "containerTag": "section",
   "folders": [
-    "mediaDir"
+    "mediaDir",
+    "contextsDir"
   ],
+  "numOfContextFolders": "2",
+  "contextNames": "mysite,myothersite",
   "mediaQuery": true,
-  "viewports": [
+  "breakpoints": [
     "mobileCss",
     "tabletCss",
     "desktopCss"
