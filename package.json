@@ -4,12 +4,11 @@
   "description": "Yeoman generator for a self-contained component",
   "license": "MIT",
   "main": "app/index.js",
-  "repository": "techmsi/generator-factory-component",
-  "author": {
-    "name": "Sophie Idromenos",
-    "email": "sophia.idro@gmail.com",
-    "url": "https://github.com/techmsi"
+  "repository": {
+    "type": "git",
+    "url": "https://techmsi@github.com/techmsi/generator-factory-component.git"
   },
+  "author": "techmsi",
   "engines": {
     "node": ">=0.10.0"
   },
