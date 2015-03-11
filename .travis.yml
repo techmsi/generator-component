@@ -3,7 +3,7 @@ node_js:
   - '0.10'
 before_install:
   - currentfolder=${PWD##*/}
-  - if [ "$currentfolder" != 'generator-component' ]; then cd .. && eval "mv $currentfolder generator-component" && cd generator-component; fi
+  - if [ "$currentfolder" != 'generator-factory-component' ]; then cd .. && eval "mv $currentfolder generator-factory-component" && cd generator-factory-component; fi
 script:
   - "npm test"
 notifications:

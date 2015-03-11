@@ -9,7 +9,7 @@ var util = require('util'),
   prompts = require('../prompts.js');
 
 // Extend Base generator
-var ComponentGenerator = yeoman.generators.Base.extend({
+var FactoryComponentGenerator = yeoman.generators.Base.extend({
   constructor: function () {
     yeoman.generators.Base.apply(this, arguments);
     this.argument('componentName', { type: String, required: true });
@@ -119,4 +119,4 @@ function createCss(self, dir, data) {
 
 }
 
-module.exports = ComponentGenerator;
+module.exports = FactoryComponentGenerator;

@@ -22,9 +22,9 @@
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
- generator-component [![Build Status](https://secure.travis-ci.org/techmsi/generator-component.png?branch=master)](https://travis-ci.org/techmsi/generator-component)
-[![Code Climate](https://codeclimate.com/github/techmsi/generator-component/badges/gpa.svg)](https://codeclimate.com/github/techmsi/generator-component)
-[![Test Coverage](https://codeclimate.com/github/techmsi/generator-component/badges/coverage.svg)](https://codeclimate.com/github/techmsi/generator-component)
+ generator-factory-component [![Build Status](https://secure.travis-ci.org/techmsi/generator-factory-component.png?branch=master)](https://travis-ci.org/techmsi/generator-factory-component)
+[![Code Climate](https://codeclimate.com/github/techmsi/generator-factory-component/badges/gpa.svg)](https://codeclimate.com/github/techmsi/generator-factory-component)
+[![Test Coverage](https://codeclimate.com/github/techmsi/generator-factory-component/badges/coverage.svg)](https://codeclimate.com/github/techmsi/generator-factory-component)
 
 ## Getting Started
 
@@ -36,10 +36,10 @@ npm install -g yo
 
 >[Yeoman](http://yeoman.io) generator
 
-To install `generator-component` from npm, run:
+To install `generator-factory-component` from npm, run:
 
 ```bash
-npm install -g generator-component
+npm install -g generator-factory-component
 ```
 
 Finally, initiate the generator:
