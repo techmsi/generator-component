@@ -73,7 +73,7 @@ var FactoryComponentGenerator = yeoman.generators.Base.extend({
       componentName: this.componentDir,
       desktopOnlyDisplay: this.props.desktopOnlyDisplay,
       controllerName: _.capitalize(_.camelCase(this.componentDir)),
-      tag: this.containerTag
+      tag: this.props.containerTag
     };
 
     // Files that must be created
