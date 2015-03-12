@@ -41,6 +41,13 @@ prompts = [
     default:2
   },
   {
+    name:'markupFilename',
+    value:'markupFilename',
+    message:chalk.green('What do you want to name the markup file?') +
+    chalk.red('\nPlease add the extension also (i.e. index.html)'),
+    default:'template.nunjucks'
+  },
+  {
     type:'checkbox',
     name:'folders',
     message:'Which folders would you like to create?',
