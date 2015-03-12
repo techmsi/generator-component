@@ -59,14 +59,14 @@ var FactoryComponentGenerator = yeoman.generators.Base.extend({
     }
 
     if (this.hasContexts) {
-      this.mkdir(this.componentDir + '/contexts');
+      this.mkdir(this.componentDir + '/' + this.props.contextFolderName);
     }
   },
   createFiles: function () {
     var data,
         contextsDirs,
         componentDir = this.componentDir,
-        contextsDir = componentDir + '/contexts/',
+        contextsDir = componentDir + '/' + this.props.contextFolderName + '/',
         singleFolderPath = contextsDir + this.props.contextName;
 
     data = {
