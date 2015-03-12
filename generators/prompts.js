@@ -78,7 +78,7 @@ prompts = [
     value:'contextFolderName',
     message:chalk.green('What do you want to name the folder that holds your context? (i.e. contexts)'),
     when:function (answers) {
-      return answers.numOfContextFolders == 1;
+      return answers.numOfContextFolders >= 1;
     },
     default:'contexts'
   },
