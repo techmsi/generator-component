@@ -1,5 +1,6 @@
 {
   "containerTag": "section",
+  "markupFilename": "template.nunjucks",
   "folders": [
     "mediaDir"
   ],

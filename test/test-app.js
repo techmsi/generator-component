@@ -20,8 +20,8 @@ var path = require('path'),
 
 var filesDefaults = [
    componentName + '/' + 'media/',
-   componentName + '/' + 'index.html',
-   componentName + '/' + 'index.js',
+   componentName + '/' + 'template.nunjucks',
+   componentName + '/' + 'client.js',
    componentName + '/' + 'print.css'
  ];
 

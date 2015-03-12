@@ -1,10 +1,12 @@
 {
   "containerTag": "section",
+  "markupFilename": "template.nunjucks",
   "folders": [
     "mediaDir",
     "contextsDir"
   ],
   "numOfContextFolders": "2",
+  "contextFolderName": "contexts",
   "contextNames": "mysite,myothersite",
   "mediaQuery": true,
   "breakpoints": [
