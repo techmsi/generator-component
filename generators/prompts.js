@@ -1,6 +1,7 @@
 'use strict';
 
 var chalk = require('chalk'),
+descriptions = require('./descriptions.json'),
 prompts = [
   {
     type:'list',
@@ -9,19 +10,31 @@ prompts = [
     chalk.red('\n(Choose a semantically appropriate tag)'),
     choices:[
       {
-        name:'Nav',
-        value:'nav'
-      },
-      {
-        name:'Aside',
-        value:'aside'
-      },
-      {
-        name:'Section',
+        name:'Section' + chalk.gray('\n\t[' + descriptions.section + ']'),
         value:'section'
       },
       {
-        name:'Div',
+        name:'Article' + chalk.gray('\n\t[' + descriptions.article + ']'),
+        value:'article'
+      },
+      {
+        name:'Nav' + chalk.gray('\n\t[' + descriptions.nav + ']'),
+        value:'nav'
+      },
+      {
+        name:'Header' + chalk.gray('\n\t[' + descriptions.header + ']'),
+        value:'header'
+      },
+      {
+        name:'Footer' + chalk.gray('\n\t[' + descriptions.footer + ']'),
+        value:'footer'
+      },
+      {
+        name:'Aside' + chalk.gray('\n\t[' + descriptions.aside + ']'),
+        value:'aside'
+      },
+      {
+        name:'Div' + chalk.gray('\n\t[' + descriptions.div + ']'),
         value:'div'
       }
     ],

@@ -1,0 +1,10 @@
+{
+  "section":"a generic grouping of content.",
+  "article":"a self-contained composition that is independently distributable.",
+  "nav":"major navigation blocks.",
+  "header":"a group of introductory or navigational aids.",
+  "footer":"information about the current content.",
+  "aside":"tangentially related content to the content around it.",
+  "figure":"used to annotate illustrations, diagrams, photos.",
+  "div":"element of last resort."
+}
