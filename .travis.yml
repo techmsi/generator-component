@@ -5,7 +5,7 @@ before_install:
   - currentfolder=${PWD##*/}
   - if [ "$currentfolder" != 'generator-factory-component' ]; then cd .. && eval "mv $currentfolder generator-factory-component" && cd generator-factory-component; fi
 script:
-  - "npm test"
+  - "npm test --coverage"
 notifications:
   email: false
 after_script:
