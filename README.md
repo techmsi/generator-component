@@ -1,4 +1,3 @@
-[![Stories in Ready](https://badge.waffle.io/techmsi/generator-factory-component.png?label=ready&title=Ready)](https://waffle.io/techmsi/generator-factory-component)
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**
@@ -26,6 +25,7 @@
  generator-factory-component [![Build Status](https://secure.travis-ci.org/techmsi/generator-factory-component.png?branch=master)](https://travis-ci.org/techmsi/generator-factory-component)
 [![Code Climate](https://codeclimate.com/github/techmsi/generator-factory-component/badges/gpa.svg)](https://codeclimate.com/github/techmsi/generator-factory-component)
 [![Test Coverage](https://codeclimate.com/github/techmsi/generator-factory-component/badges/coverage.svg)](https://codeclimate.com/github/techmsi/generator-factory-component)
+[![Stories in Ready](https://badge.waffle.io/techmsi/generator-factory-component.png?label=ready&title=Ready)](https://waffle.io/techmsi/generator-factory-component)
 
 ## Getting Started
 
