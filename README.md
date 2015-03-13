@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/techmsi/generator-factory-component.png?label=ready&title=Ready)](https://waffle.io/techmsi/generator-factory-component)
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 **Table of Contents**
