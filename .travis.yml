@@ -8,5 +8,7 @@ script:
   - "npm test --coverage"
 notifications:
   email: false
+  slack:
+    secure: Vf5Anezg84Jqfmx2HYb9QzTl2T4tamQXhSjKqDaP7tFKsoHB4oVwTdgvgQ/w6ui+FoVjsu/4BkQZ9eQGzYGr4yd9Ktqo2K+0o7witKBi+Qx6Q/RJ983nscF6VzFdancXeVpfvWyU5df9LPxHiKXz0NUxS4FwB7GOBvU5vWHt29k=
 after_script:
   - cat ./coverage/lcov.info | ./node_modules/.bin/codeclimate
