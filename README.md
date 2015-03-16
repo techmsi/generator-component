@@ -116,7 +116,7 @@ _These **context names** are either defaults or what is entered when prompted._
 * component-name/1024+.css
 
 ### Breakpoints
-* Do you need more than one viewport?
+* Do you need more than one breakpoint?
 
 #### Additional Questions
 _( Answer: Yes )_
