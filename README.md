@@ -25,6 +25,7 @@
  generator-factory-component [![Build Status](https://secure.travis-ci.org/techmsi/generator-factory-component.png?branch=master)](https://travis-ci.org/techmsi/generator-factory-component)
 [![Code Climate](https://codeclimate.com/github/techmsi/generator-factory-component/badges/gpa.svg)](https://codeclimate.com/github/techmsi/generator-factory-component)
 [![Test Coverage](https://codeclimate.com/github/techmsi/generator-factory-component/badges/coverage.svg)](https://codeclimate.com/github/techmsi/generator-factory-component)
+[![Coverage Status](https://coveralls.io/repos/techmsi/generator-factory-component/badge.svg)](https://coveralls.io/r/techmsi/generator-factory-component)
 [![Stories in Ready](https://badge.waffle.io/techmsi/generator-factory-component.png?label=ready&title=Ready)](https://waffle.io/techmsi/generator-factory-component)
 
 ## Getting Started
