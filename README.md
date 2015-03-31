@@ -46,7 +46,7 @@ npm install -g generator-factory-component
 Finally, initiate the generator:
 
 ```bash
-yo component component-name
+yo factory-component component-name
 ```
 
 ## Overview
