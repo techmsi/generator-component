@@ -21,6 +21,8 @@ var path = require('path'),
 var filesDefaults = [
    componentName + '/' + 'media/',
    componentName + '/' + 'template.nunjucks',
+   componentName + '/' + 'server.js',
+   componentName + '/' + 'schema.yml',
    componentName + '/' + 'client.js',
    componentName + '/' + 'print.css'
  ];

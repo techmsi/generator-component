@@ -76,7 +76,10 @@ var FactoryComponentGenerator = yeoman.generators.Base.extend({
       tag: this.props.containerTag
     };
 
+
     // Files that must be created
+    this.copy('_server.js', componentDir + '/server.js');
+    this.copy('_schema.yml', componentDir + '/schema.yml');
     this.template('_index.html', componentDir + '/template.' + this.props.markupFilename, data);
     this.template('_index.js', componentDir + '/client.js', data);
     this.template('_print.css', componentDir + '/print.css', data);
