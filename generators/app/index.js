@@ -77,7 +77,7 @@ var FactoryComponentGenerator = yeoman.generators.Base.extend({
     };
 
     // Files that must be created
-    this.template('_index.html', componentDir + '/' + this.props.markupFilename, data);
+    this.template('_index.html', componentDir + '/template.' + this.props.markupFilename, data);
     this.template('_index.js', componentDir + '/client.js', data);
     this.template('_print.css', componentDir + '/print.css', data);
     this.log(chalk.blue('Basic Files Created.'));

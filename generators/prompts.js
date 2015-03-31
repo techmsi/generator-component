@@ -41,11 +41,20 @@ prompts = [
     default:2
   },
   {
+    type:'list',
     name:'markupFilename',
-    value:'markupFilename',
-    message:chalk.green('What do you want to name the markup file?') +
-    chalk.red('\nPlease add the extension also (i.e. index.html)'),
-    default:'template.nunjucks'
+    message:chalk.green('Which template language would you like to use?'),
+    choices:[
+      {
+        name:'Jade',
+        value:'jade'
+      },
+      {
+        name:'Nunjucks',
+        value:'nunjucks'
+      }
+    ],
+    default:1
   },
   {
     type:'checkbox',
