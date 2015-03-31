@@ -65,6 +65,16 @@ _The **component-name** is passed as an argument when calling the generator._
 default: `Section`
 * Choose a semantically appropriate tag.
 
+### Template Language
+
+* Which template language would you like to use?
+
+default: `Nunjucks`
+
+**Generated File**
+
+* component-name/template.`nunjucks`
+
 ### Folder Choices
 * Which folders would you like to create?
 
