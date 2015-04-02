@@ -1,5 +1,5 @@
 var chalk = require('chalk'),
-    _ = require('lodash-node');
+    _ = require('lodash');
 
 module.exports = function (props) {
   var msg = '';
