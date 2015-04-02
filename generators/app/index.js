@@ -7,7 +7,8 @@ var util = require('util'),
   yosay = require('yosay'),
   _ = require('lodash'),
   prompts = require('../prompts.js'),
-  printPromptDetails = require('../helpers.js');
+  printPromptDetails = require('../helpers.js').printPromptDetails,
+  createCss = require('../helpers.js').createCss;
 
 // Extend Base generator
 var FactoryComponentGenerator = yeoman.generators.Base.extend({
@@ -66,25 +67,20 @@ var FactoryComponentGenerator = yeoman.generators.Base.extend({
     this.template('_print.css', componentDir + '/print.css', data);
     this.log(chalk.blue('Basic Files Created.'));
 
-      createCss(this, componentDir, data);
-      this.log(chalk.blue('No Context Needed.'));
+    createCss(this, componentDir, data);
+    this.log(chalk.blue('No Context Needed.'));
+  },
+  createContexts: function () {
+    if (this.addContexts) {
+      var done = this.async();
+      this.invoke('factory-component:context', {args: [componentDir]}, function () {
+        done();
+      });
+    } else {
+      this.log('No contexts created.');
+    }
   }
 
 });
-
-// Creates Css files for the specified ranges
-function createCss(self, dir, data) {
-  var newData = (data.desktopOnlyDisplay) ? _.omit(data, 'desktopOnlyDisplay') : data;
-
-  if (self.props.mediaQuery) {
-    self.template('_all.css', dir + '/' + '0-' + self.props.mobileRange + '.css', newData);
-    self.template('_all.css', dir + '/' + self.props.mobileRange + '-' + self.props.tabletRange + '.css', newData);
-    self.template('_all.css', dir + '/' + self.props.tabletRange + '+' + '.css', data);
-  } else {
-    // No media queries required
-    self.template('_all.css', self.componentDir + '/all.css', data);
-  }
-
-}
 
 module.exports = FactoryComponentGenerator;
