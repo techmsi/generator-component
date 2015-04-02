@@ -10,7 +10,7 @@ var path = require('path'),
  generatorPath = '../generators/app',
  outputDir = './temp-test',
  componentName = 'my-test-component',
- printPromptDetails = require(path.resolve('generators', 'helpers.js')),
+ printPromptDetails = require(path.resolve('generators', 'helpers.js')).printPromptDetails,
  prompts0ContextsMultipleBreakpoints = require(path.resolve('test/mockData', 'prompts0ContextsMultipleBreakpoints.json')),
  prompts0Contexts1Breakpoint = require(path.resolve('test/mockData', 'prompts0Contexts1Breakpoint.json'));
 
