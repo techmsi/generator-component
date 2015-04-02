@@ -5,7 +5,7 @@ prompts = [
   {
     type:'checkbox',
     name:'folders',
-    message:'Which folders would you like to create?',
+    message:'\n\nWhich folders would you like to create?',
     choices:[
       {
         name:'Media Folder',
