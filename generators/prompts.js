@@ -55,61 +55,6 @@ prompts = [
       }
     ],
     default:1
-  },
-  {
-    type:'confirm',
-    name:'mediaQuery',
-    message:chalk.green('Do you need more than one viewport?'),
-    default:true
-  },
-  {
-    type:'checkbox',
-    name:'breakpoints',
-    message:'Which breakpoints would you like to build the css for?',
-    when:hasFeature('mediaQuery'),
-    choices:[
-      {
-        name:'Mobile',
-        value:'mobileCss',
-        checked:true
-      },
-      {
-        name:'Tablet',
-        value:'tabletCss',
-        checked:true
-      },
-      {
-        name:'Desktop',
-        value:'desktopCss',
-        checked:true
-      }
-    ]
-  },
-  {
-    type:'confirm',
-    name:'desktopOnlyDisplay',
-    value:'desktopOnlyDisplay',
-    when:hasFeature('mediaQuery'),
-    message:chalk.black('Will this only be visible on Desktop?'),
-    default:true
-  },
-  {
-    name:'mobileRange',
-    value:'mobileRange',
-    message:chalk.black('What is the maximum range for the Mobile Breakpoint?'),
-    when:function (answers) {
-      return hasFeatureChoice(answers.breakpoints, 'mobileCss');
-    },
-    default:'600'
-  },
-  {
-    name:'tabletRange',
-    value:'tabletRange',
-    message:chalk.black('What is the maximum range for the Tablet Breakpoint?'),
-    when:function (answers) {
-      return hasFeatureChoice(answers.breakpoints, 'tabletCss');
-    },
-    default:'1024'
   }
 ];
 
