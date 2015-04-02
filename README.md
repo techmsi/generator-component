@@ -47,7 +47,18 @@ npm install -g generator-factory-component
 Finally, initiate the generator:
 
 ```bash
-yo component component-name
+yo factory-component component-name
+```
+Finally, initiate the generator with a context option:
+
+```bash
+yo factory-component component-name --context
+```
+
+Basically, the above invokes the subgenerator for Contexts Css:
+
+```bash
+yo factory-component:context component-name
 ```
 
 ## Overview
@@ -65,6 +76,16 @@ _The **component-name** is passed as an argument when calling the generator._
 
 default: `Section`
 * Choose a semantically appropriate tag.
+
+### Template Language
+
+* Which template language would you like to use?
+
+default: `Nunjucks`
+
+**Generated File**
+
+* component-name/template.`nunjucks`
 
 ### Folder Choices
 * Which folders would you like to create?
