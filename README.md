@@ -48,8 +48,13 @@ Finally, initiate the generator:
 ```bash
 yo factory-component component-name
 ```
+Finally, initiate the generator with a context option:
 
-Subgenerator for Contexts Css
+```bash
+yo factory-component component-name --context
+```
+
+Basically, the above invokes the subgenerator for Contexts Css:
 
 ```bash
 yo factory-component:context component-name
