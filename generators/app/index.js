@@ -16,6 +16,13 @@ var FactoryComponentGenerator = yeoman.generators.Base.extend({
     yeoman.generators.Base.apply(this, arguments);
     this.argument('componentName', { type: String, required: true });
     this.componentName = this.componentName;
+
+    // Add support for `--context` flag
+    this.option('context', {
+      desc: 'adding --context support',
+      type: Boolean,
+      defaults: false
+    });
   },
   info: function () {
     this.log(chalk.yellow(
@@ -67,17 +74,26 @@ var FactoryComponentGenerator = yeoman.generators.Base.extend({
     this.template('_print.css', componentDir + '/print.css', data);
     this.log(chalk.blue('Basic Files Created.'));
 
-    createCss(this, componentDir, data);
-    this.log(chalk.blue('No Context Needed.'));
   },
   createContexts: function () {
-    if (this.addContexts) {
+    var data,
+        componentDir = this.componentDir;
+
+    data = {
+      componentName: this.componentDir,
+      desktopOnlyDisplay: this.props.desktopOnlyDisplay,
+      controllerName: _.capitalize(_.camelCase(this.componentDir)),
+      tag: this.props.containerTag
+    };
+
+    if (this.options.context) {
       var done = this.async();
       this.invoke('factory-component:context', {args: [componentDir]}, function () {
         done();
       });
     } else {
-      this.log('No contexts created.');
+      createCss(this, componentDir, data);
+      this.log(chalk.blue('No Context Needed.'));
     }
   }
 
