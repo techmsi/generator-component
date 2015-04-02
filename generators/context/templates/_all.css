@@ -1,0 +1,7 @@
+.<%= componentName %>{
+  <% if(typeof desktopOnlyDisplay == "undefined"){ %>
+    display: none;
+   <% } else{ %>
+    position: relative;
+  <% } %>
+}
