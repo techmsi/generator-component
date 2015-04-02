@@ -5,7 +5,7 @@ var util = require('util'),
   chalk = require('chalk'),
   yeoman = require('yeoman-generator'),
   yosay = require('yosay'),
-  _ = require('lodash-node'),
+  _ = require('lodash'),
   prompts = require('../prompts.js'),
   printPromptDetails = require('../helpers.js');
 
