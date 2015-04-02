@@ -5,10 +5,8 @@ var util = require('util'),
   chalk = require('chalk'),
   yeoman = require('yeoman-generator'),
   yosay = require('yosay'),
-  _ = require('lodash'),
-  prompts = require('../prompts.js'),
-  printPromptDetails = require('../helpers.js').printPromptDetails,
-  createCss = require('../helpers.js').createCss;
+  _ = require('lodash-node'),
+  prompts = require('../prompts.js');
 
 // Extend Base generator
 var FactoryComponentGenerator = yeoman.generators.Base.extend({
@@ -16,13 +14,6 @@ var FactoryComponentGenerator = yeoman.generators.Base.extend({
     yeoman.generators.Base.apply(this, arguments);
     this.argument('componentName', { type: String, required: true });
     this.componentName = this.componentName;
-
-    // Add support for `--context` flag
-    this.option('context', {
-      desc: 'adding --context support',
-      type: Boolean,
-      defaults: false
-    });
   },
   info: function () {
     this.log(chalk.yellow(
@@ -45,18 +36,38 @@ var FactoryComponentGenerator = yeoman.generators.Base.extend({
 
   },
   confirmInfo: function () {
-    printPromptDetails(this.props);
+    var msg = '';
+
+    for (var key in this.props) {
+      msg += '\n' + _.startCase(key) + ':\t' + this.props[key];
+    }
+
+    this.log(chalk.yellow(
+      '\n---- DETAILS----',
+      '\nComponent Name:\t', this.componentDir,
+      msg, '\n'
+    ));
+
   },
   createFolders: function () {
 
     // Make base component folder
     this.mkdir(this.componentDir);
-    this.mkdir(this.componentDir + '/media');
 
+    if (_.includes(this.props.folders, 'mediaDir')) {
+      this.mkdir(this.componentDir + '/media');
+    }
+
+    if (this.hasContexts) {
+      this.mkdir(this.componentDir + '/' + this.props.contextFolderName);
+    }
   },
   createFiles: function () {
     var data,
-        componentDir = this.componentDir;
+        contextsDirs,
+        componentDir = this.componentDir,
+        contextsDir = componentDir + '/' + this.props.contextFolderName + '/',
+        singleFolderPath = contextsDir + this.props.contextName;
 
     data = {
       componentName: this.componentDir,
@@ -65,32 +76,23 @@ var FactoryComponentGenerator = yeoman.generators.Base.extend({
       tag: this.props.containerTag
     };
 
-
     // Files that must be created
-    this.copy('_server.js', componentDir + '/server.js');
-    this.copy('_schema.yml', componentDir + '/schema.yml');
-    this.template('_index.html', componentDir + '/template.' + this.props.markupFilename, data);
+    this.template('_index.html', componentDir + '/' + this.props.markupFilename, data);
     this.template('_index.js', componentDir + '/client.js', data);
     this.template('_print.css', componentDir + '/print.css', data);
     this.log(chalk.blue('Basic Files Created.'));
 
-  },
-  createContexts: function () {
-    var data,
-        componentDir = this.componentDir;
+    if (this.props.numOfContextFolders > 1) {
+      contextsDirs = this.props.contextNames.split(',');
 
-    data = {
-      componentName: this.componentDir,
-      desktopOnlyDisplay: this.props.desktopOnlyDisplay,
-      controllerName: _.capitalize(_.camelCase(this.componentDir)),
-      tag: this.props.containerTag
-    };
-
-    if (this.options.context) {
-      var done = this.async();
-      this.invoke('factory-component:context', {args: [componentDir]}, function () {
-        done();
-      });
+      for (var folder in contextsDirs) {
+        var dir = contextsDir + contextsDirs[folder];
+        createCss(this, dir, data);
+      }
+      this.log('Created Contexts:\t', chalk.underline.blue(contextsDirs));
+    } else if (this.props.numOfContextFolders == 1) {
+      createCss(this, singleFolderPath, data);
+      this.log(chalk.blue('Context Needed.'));
     } else {
       createCss(this, componentDir, data);
       this.log(chalk.blue('No Context Needed.'));
@@ -98,5 +100,23 @@ var FactoryComponentGenerator = yeoman.generators.Base.extend({
   }
 
 });
+
+// Creates Css files for the specified ranges
+function createCss(self, dir, data) {
+  var newData = (data.desktopOnlyDisplay) ? _.omit(data, 'desktopOnlyDisplay') : data;
+
+  if (self.props.mediaQuery) {
+    self.template('_all.css', dir + '/' + '0-' + self.props.mobileRange + '.css', newData);
+    self.template('_all.css', dir + '/' + self.props.mobileRange + '-' + self.props.tabletRange + '.css', newData);
+    self.template('_all.css', dir + '/' + self.props.tabletRange + '+' + '.css', data);
+  } else if (dir !== 'undefined') {
+    // No media queries required but context required
+    self.template('_all.css', dir + '/all.css', data);
+  } else {
+    // No media queries required
+    self.template('_all.css', self.componentDir + '/all.css', data);
+  }
+
+}
 
 module.exports = FactoryComponentGenerator;

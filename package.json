@@ -16,8 +16,7 @@
     "test": "make test"
   },
   "files": [
-    "app",
-    "context"
+    "app"
   ],
   "keywords": [
     "yeoman-generator"
@@ -28,7 +27,7 @@
     "yosay": "^0.3.0",
     "path": "^0.11.14",
     "util": "^0.10.3",
-    "lodash": "^3.1.0"
+    "lodash-node": "^3.1.0"
   },
   "devDependencies": {
     "coveralls": "^2.10.0",
