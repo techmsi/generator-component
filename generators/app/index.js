@@ -69,6 +69,16 @@ var FactoryComponentGenerator = yeoman.generators.Base.extend({
 
     createCss(this, componentDir, data);
     this.log(chalk.blue('No Context Needed.'));
+  },
+  createContexts: function () {
+    if (this.addContexts) {
+      var done = this.async();
+      this.invoke('factory-component:context', {args: [componentDir]}, function () {
+        done();
+      });
+    } else {
+      this.log('No contexts created.');
+    }
   }
 
 });

@@ -49,6 +49,12 @@ Finally, initiate the generator:
 yo factory-component component-name
 ```
 
+Subgenerator for Contexts Css
+
+```bash
+yo factory-component:context component-name
+```
+
 ## Overview
 You will be taken through a series of questions then the following files will be **generated** in all cases
 

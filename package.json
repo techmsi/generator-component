@@ -16,7 +16,8 @@
     "test": "make test"
   },
   "files": [
-    "app"
+    "app",
+    "context"
   ],
   "keywords": [
     "yeoman-generator"
