@@ -23,16 +23,6 @@ var filesDefaults = [
    componentName + '/' + 'print.css'
  ];
 
-var files0ContextsMultipleBreakpoints = [
-  componentName + '/' + '0-600.css',
-  componentName + '/' + '600-1024.css',
-  componentName + '/' + '1024+.css'
-];
-
-var files0Contexts1Breakpoint = [
-  componentName + '/' + 'all.css'
-];
-
 // 0 Contexts, Multiple Breakpoints
 describe('component:app - case ' + caseNum++, function () {
   before(function (done) {
@@ -45,12 +35,10 @@ describe('component:app - case ' + caseNum++, function () {
 
   it('create files - (0 Contexts, Multiple Breakpoints)', function () {
     assert.file(filesDefaults);
-    assert.file(files0ContextsMultipleBreakpoints);
   });
 
   after(function() {
     printPromptDetails(prompts0ContextsMultipleBreakpoints);
-    console.log(files0ContextsMultipleBreakpoints);
   });
 });
 
@@ -66,11 +54,9 @@ describe('component:app - case ' + caseNum++, function () {
 
   it('create files - (0 Contexts, 1 Breakpoint)', function () {
     assert.file(filesDefaults);
-    assert.file(files0Contexts1Breakpoint);
   });
 
   after(function(){
     printPromptDetails(prompts0Contexts1Breakpoint);
-    console.log(files0Contexts1Breakpoint);
   });
 });
